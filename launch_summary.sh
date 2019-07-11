@@ -9,7 +9,7 @@
 source ~/pyenv/bin/activate
 
 # Run Python script
-python  ~/workspaces/py-tools/src/summary.py $PWD **/encLog* **/decLog* > results.csv
+python ~/workspaces/py-tools/src/main.py -t coding_summary -d  $PWD -e **/encLog* -b **/decLog* > results.csv
 
 # Deactivate
 deactivate
