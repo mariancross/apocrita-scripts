@@ -9,7 +9,8 @@
 source ~/pyenv/bin/activate
 
 # Run Python script
-python  ~/workspaces/py-tools/src/main_modes.py $PWD **/decLog* > modes_count.txt
+INPUT_ARGS=$(sed -n "${SGE_TASK_ID}p" test_sequences.txt)
+python  ~/workspaces/py-tools/src/main.py -t mode_count -d $PWD -b "**/decLog_"$INPUT_ARGS"*.out"
 
 # Deactivate
 deactivate
