@@ -7,6 +7,6 @@
 
 source $HOME/pyenv/bin/activate
 
-python $HOME/workspaces/py-tools/src/main.py -t coding_summary -d  $PWD -e **/encLog* -b **/decLog*
+python $HOME/workspaces/py-tools/src/main.py -c i_main10 -t coding_summary -d  $PWD -e **/encLog* -b **/decLog*
 
 deactivate
