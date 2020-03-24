@@ -88,8 +88,8 @@ fi
 # -----------------------------------------------------------------
 # Actual process
 # -----------------------------------------------------------------
-enc_arg_string=" -c "$config_file" --InputFile="$currInputFile" --QP="$currQP" --FramesToBeEncoded="$currNumFrames" --FrameSkip="$currSkipFrames" --FrameRate="$currFrameRate" --BitstreamFile="$BitstreamFile" --ReconFile="$DecodedFile" --SourceWidth="$width" --SourceHeight="$height" --SEIDecodedPictureHash=1"
+enc_arg_string=" -c "$config_file" --InputFile="$currInputFile" --QP="$currQP" --FramesToBeEncoded="$currNumFrames" --FrameSkip="$currSkipFrames" --FrameRate="$currFrameRate" --BitstreamFile="$BitstreamFile" --ReconFile="$DecodedFile" --SourceWidth="$width" --SourceHeight="$height" --SEIDecodedPictureHash=1 --Verbosity=6"
 
 eval "/usr/bin/time -p $encoder_bin $enc_arg_string >> $log_file"
 eval "cat *.$SGE_TASK_ID | tail -n 3 >> $log_file"
-#eval "rm "${BitstreamFile}
+eval "rm "${DecodedFile}
