@@ -8,4 +8,7 @@
 
 source $HOME/pyenv/bin/activate
 
-python $HOME/workspaces/intra-prediction-tf/main_alwip.py --task test --yuv_path video.yuv --yuv_width 1280 -- yuv_height 720 --bit_depth 10 --pred_path output.png
+INPUT_ARGS=$(sed -n "${SGE_TASK_ID}p" nn_args.txt)
+python $HOME/workspaces/intra-prediction-tf/main_alwip.py --task test --bit_depth 10 $INPUT_ARGS
+
+deactivate
