@@ -9,6 +9,6 @@
 source $HOME/pyenv/bin/activate
 
 INPUT_ARGS=$(sed -n "${SGE_TASK_ID}p" nn_args.txt)
-python $HOME/workspaces/intra-prediction-tf/main_alwip.py --task test --bit_depth 10 $INPUT_ARGS
+python $HOME/workspaces/intra-prediction-tf/src/main_alwip.py --task test --ctx_size 4 --batch_size 1 --loss_type satd --bit_depth 10 $INPUT_ARGS
 
 deactivate

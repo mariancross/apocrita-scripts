@@ -20,7 +20,7 @@ cp -rf --remove-destination $SOURCE_REPO/{bin,lib} .
 mv ./bin/EncoderAppStatic ./bin/EncoderAppStatic-$VERSION
 mv ./bin/DecoderAppStatic ./bin/DecoderAppStatic-$VERSION
 
-cd bin
+cd bin || exit
 
 ln -sf ./EncoderAppStatic-$VERSION ./EncoderAppStatic
 ln -sf ./DecoderAppStatic-$VERSION ./DecoderAppStatic
