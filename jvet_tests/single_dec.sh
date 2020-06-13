@@ -7,7 +7,7 @@ encoder_bin=$1
 num_sequences=$2
 final_index=$(($num_sequences+3))
 
-readonly SEQUENCE_NAME=("Tango2" "FoodMarket4" "Campfire" "CatRobot" "DaylightRod2" "ParkRunning3" "MarketPlace" "RitualDance" "Cactus" "BasketballDrive" "BQTerrace" "RaceHorsesC" "BQMall" "PartyScene" "BasketballDrill" "RaceHorses" "BQSquare" "BlowingBubbles" "BasketballPass" "FourPeople" "Johnny" "KristenAndSara")
+readonly SEQUENCE_NAME=("Tango2" "FoodMarket4" "Campfire" "CatRobot" "DaylightRoad2" "ParkRunning3" "MarketPlace" "RitualDance" "Cactus" "BasketballDrive" "BQTerrace" "RaceHorsesC" "BQMall" "PartyScene" "BasketballDrill" "RaceHorses" "BQSquare" "BlowingBubbles" "BasketballPass" "FourPeople" "Johnny" "KristenAndSara")
 readonly QPs=(22 27 32 37)
 
 #Check if current point must be tested:
