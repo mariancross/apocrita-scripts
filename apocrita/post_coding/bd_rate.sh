@@ -8,6 +8,6 @@
 # shellcheck disable=SC1090
 . "${HOME}/pyenv/bin/activate"
 
-python "${HOME}/workspaces/py-tools/py-tools/main.py" --task bd_rate --anchor_file anchor/summary.csv --test_file test/summary.csv --output_file bd_rate.xlsx
+python "${HOME}/workspaces/phd-scripts/coding" --task bd_rate --anchor_file anchor/summary.csv --test_file test/summary.csv --output_file bd_rate.xlsx
 
 deactivate
