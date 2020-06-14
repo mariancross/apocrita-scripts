@@ -82,7 +82,8 @@ def read_summary(file_name: str):
     return df.to_numpy()
 
 
-def compute_bd_rate(anchor_filename: str, test_filename: str, output_file: str, piecewise: int = 1):
+def compute_bd_rate(anchor_filename: str, test_filename: str, output_file: str,
+                    piecewise: int = 1, save_to_file: bool = True):
     anchor_summary = read_summary(anchor_filename)
     test_summary = read_summary(test_filename)
 
@@ -105,5 +106,16 @@ def compute_bd_rate(anchor_filename: str, test_filename: str, output_file: str, 
         results.append(row)
 
     df = pd.DataFrame(results, columns=['sequence', 'BD-rate Y', 'BD-rate U', 'BD-rate V'])
+
+    if save_to_file:
+        with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
+            df.to_excel(writer, sheet_name='BD-rate')
+
+    return df
+
+
+def merge_metrics(bd_rate: pd.DataFrame, quality: pd.DataFrame, output_file: str):
+    bd_rate.join(quality)
+
     with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
-        df.to_excel(writer, sheet_name='BD-rate')
+        bd_rate.to_excel(writer, sheet_name='BD-rate')

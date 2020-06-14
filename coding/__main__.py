@@ -16,8 +16,9 @@
 #
 
 
-from parser import summarise_coding_results, aggregate_intra_modes
-from post_processing import save_intra_modes, compute_bd_rate
+from parse_codec import summarise_coding_results, aggregate_intra_modes
+from parse_nn import nn_test_results
+from post_processing import save_intra_modes, compute_bd_rate, merge_metrics
 
 from sys import exit
 import argparse
@@ -44,9 +45,13 @@ if __name__ == "__main__":
     if args.task == 'coding_summary':
         summarise_coding_results(args.config, args.dir, args.enc_file_rgx, args.dec_file_rgx, args.codec)
     elif args.task == 'bd_rate':
-        compute_bd_rate(args.anchor_file, args.test_file, args.output_file)
+        compute_bd_rate(args.anchor_file, args.test_file, args.output_file, save_to_file=True)
     elif args.task == 'intra_modes':
         intra_modes = aggregate_intra_modes(args.dir, args.dec_file_rgx)
         save_intra_modes(intra_modes, args.output_file)
+    elif args.task == 'merge_metrics':
+        bd_rate = compute_bd_rate(args.anchor_file, args.test_file, args.output_file, save_to_file=False)
+        quality = nn_test_results(args.dir, args.enc_file_rgx)
+        merge_metrics(bd_rate, quality, args.output_file)
 
     exit()
