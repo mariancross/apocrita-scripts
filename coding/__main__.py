@@ -16,8 +16,8 @@
 #
 
 
-from coding.parser import summarise_coding_results, aggregate_intra_modes
-from coding.post_processing import save_intra_modes, compute_bd_rate
+from parser import summarise_coding_results, aggregate_intra_modes
+from post_processing import save_intra_modes, compute_bd_rate
 
 from sys import exit
 import argparse

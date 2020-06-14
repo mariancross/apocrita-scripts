@@ -16,7 +16,7 @@
 #
 
 
-from coding.bjontegaard_metric import BD_RATE
+from bjontegaard_metric import BD_RATE
 
 import numpy as np
 import pandas as pd
