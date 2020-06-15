@@ -46,5 +46,5 @@ def nn_test_results(pattern: str = './**/*.sh.*'):
 
                 metrics.append([float(data_[1]), float(data_[3]), float(data_[5]), float(data_[7]), float(data_[9])])
 
-    df = pd.DataFrame(metrics, columns=['loss', 'PSNR Y', 'MSE Y', 'SSIM Y', 'RMSE Y'])
+    df = pd.DataFrame(metrics, columns=['loss', 'PSNR Y', 'MSE Y', 'SSIM Y', 'NRMSE Y'])
     return df
