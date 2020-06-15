@@ -29,8 +29,8 @@ def natural_sort_key(s, _nsre=re.compile('([0-9]+)')):
     return [int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)]
 
 
-def nn_test_results(dir_name: str, pattern: str = './**/*.sh.*'):
-    files = sorted(glob(os.path.join(dir_name, pattern), recursive=True), key=natural_sort_key)
+def nn_test_results(pattern: str = './**/*.sh.*'):
+    files = sorted(glob(pattern, recursive=True), key=natural_sort_key)
     num_files = len(files)
 
     metrics = []

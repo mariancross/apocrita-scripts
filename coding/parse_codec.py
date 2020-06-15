@@ -17,20 +17,18 @@
 
 
 from glob import glob
-import os
 import re
 
 import numpy as np
 
 
-def read_encoding_summary(dir_name: str, pattern: str = '../encLog*.out'):
+def read_encoding_summary(pattern: str = './../encLog*.out'):
     """
     Reads a set of files containing the encoder standard output
-    :param dir_name: directory containing the output files
     :param pattern: file pattern
     :return: encoder process check, file name, quantisation parameter, rate, Y PSNR, U PSNR, V PSNR, YUV PSNR and encoding time
     """
-    files = sorted(glob(os.path.join(dir_name, pattern), recursive=True))
+    files = sorted(glob(pattern, recursive=True))
     num_files = len(files)
 
     encoder_check = np.ones(num_files, dtype=bool)
@@ -75,16 +73,15 @@ def read_encoding_summary(dir_name: str, pattern: str = '../encLog*.out'):
     return encoder_check, file_names, qp, rate, y_psnr, u_psnr, v_psnr, yuv_psnr, encoding_time
 
 
-def read_decoding_summary(dir_name: str, pattern: str = '**/decLog*.out'):
+def read_decoding_summary(pattern: str = './**/decLog*.out'):
     """
     Reads a set of files containing the decoder standard output
-    :param dir_name: directory containing the output files
     :param pattern: file pattern
     :return: decoder process check, md5 check of reconstructed video and decoding time
     """
     rgx = re.compile(r'(OK|ERROR)')
 
-    files = sorted(glob(os.path.join(dir_name, pattern), recursive=True))
+    files = sorted(glob(pattern, recursive=True))
     num_files = len(files)
 
     decoder_check = np.ones(num_files, dtype=bool)
@@ -112,18 +109,16 @@ def read_decoding_summary(dir_name: str, pattern: str = '**/decLog*.out'):
 
 
 def summarise_coding_results(
-        config: str, dir_name: str, enc_pattern: str = '**/encLog*.out', dec_pattern: str = '**/decLog*.out',
-        codec: str = 'vvc'):
+        config: str, enc_pattern: str = './**/encLog*.out', dec_pattern: str = './**/decLog*.out', codec: str = 'vvc'):
     """
     Reads both encoding and decoding standard output
     :param config: coding configuration (all intra, random access or low delay)
-    :param dir_name: directory containing the output files
     :param enc_pattern: file pattern for encoding output
     :param dec_pattern: file pattern for decoding output
     :param codec: video codec name
     """
-    enc_chk, file_names, qp, rate, y_psnr, u_psnr, v_psnr, _, enc_t = read_encoding_summary(dir_name, enc_pattern)
-    dec_chk, md5_chk, dec_t = read_decoding_summary(dir_name, dec_pattern)
+    enc_chk, file_names, qp, rate, y_psnr, u_psnr, v_psnr, _, enc_t = read_encoding_summary(enc_pattern)
+    dec_chk, md5_chk, dec_t = read_decoding_summary(dec_pattern)
 
     if codec == 'hevc':
         order = np.array([68, 69, 70, 71, 56, 57, 58, 59, 40, 41, 42, 43, 48, 49, 50, 51, 28, 29, 30, 31, 8, 9, 10, 11,
@@ -148,14 +143,13 @@ def summarise_coding_results(
             'OK' if md5_chk[idx] else 'ERROR'))
 
 
-def aggregate_intra_modes(dir_name: str, pattern: str = '**/decLog*.out'):
+def aggregate_intra_modes(pattern: str = './**/decLog*.out'):
     """
     Returns the usage of intra-prediction modes
-    :param dir_name: directory containing the coding files
     :param pattern: file pattern for coding output
     :return: list of list in the format [block size, mode id, mode type, count]
     """
-    files = sorted(glob(os.path.join(dir_name, pattern), recursive=True))
+    files = sorted(glob(pattern, recursive=True))
 
     anchor_modes = {}
     test_modes = {}
@@ -196,14 +190,13 @@ def aggregate_intra_modes(dir_name: str, pattern: str = '**/decLog*.out'):
     return mode_usage
 
 
-def read_intra_type(dir_name: str, pattern: str = '**/decLog*.out'):
+def read_intra_type(pattern: str = './**/decLog*.out'):
     """
     Returns the usage of intra-prediction modes
-    :param dir_name: directory containing the coding files
     :param pattern: file pattern for coding output
     :return: list of list in the format [block size, mode id, mode type, count]
     """
-    files = sorted(glob(os.path.join(dir_name, pattern), recursive=True))
+    files = sorted(glob(pattern, recursive=True))
 
     intra_modes = []
 

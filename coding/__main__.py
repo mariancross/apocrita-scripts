@@ -27,7 +27,6 @@ import argparse
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', type=str, required=True)
-    parser.add_argument('--dir', type=str)
     parser.add_argument('--enc_file_rgx', type=str)
     parser.add_argument('--dec_file_rgx', type=str)
     parser.add_argument('--anchor_file', type=str)
@@ -43,15 +42,15 @@ if __name__ == "__main__":
     args = parse_arguments()
 
     if args.task == 'coding_summary':
-        summarise_coding_results(args.config, args.dir, args.enc_file_rgx, args.dec_file_rgx, args.codec)
+        summarise_coding_results(args.config, args.enc_file_rgx, args.dec_file_rgx, args.codec)
     elif args.task == 'bd_rate':
         compute_bd_rate(args.anchor_file, args.test_file, args.output_file, save_to_file=True)
     elif args.task == 'intra_modes':
-        intra_modes = aggregate_intra_modes(args.dir, args.dec_file_rgx)
+        intra_modes = aggregate_intra_modes(args.dec_file_rgx)
         save_intra_modes(intra_modes, args.output_file)
     elif args.task == 'merge_metrics':
         bd_rate = compute_bd_rate(args.anchor_file, args.test_file, args.output_file, save_to_file=False)
-        quality = nn_test_results(args.dir, args.enc_file_rgx)
+        quality = nn_test_results(args.enc_file_rgx)
         merge_metrics(bd_rate, quality, args.output_file)
 
     exit()

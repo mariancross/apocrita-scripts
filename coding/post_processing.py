@@ -115,7 +115,7 @@ def compute_bd_rate(anchor_filename: str, test_filename: str, output_file: str,
 
 
 def merge_metrics(bd_rate: pd.DataFrame, quality: pd.DataFrame, output_file: str):
-    bd_rate.join(quality)
+    metrics = bd_rate.join(quality)
 
     with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
-        bd_rate.to_excel(writer, sheet_name='BD-rate')
+        metrics.to_excel(writer, sheet_name='BD-rate')
